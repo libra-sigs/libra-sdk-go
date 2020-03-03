@@ -12,19 +12,19 @@ import (
 	"github.com/libra-sigs/libra-sdk-go/libra/rpc/types"
 )
 
-// Client: sdk client struct
+// Client sdk client struct
 type Client struct {
 	address string
 	conn    *grpc.ClientConn
 	acc     admission_control.AdmissionControlClient
 }
 
-// Close: clean client resource
+// Close clean client resource
 func (c Client) Close() {
 	c.conn.Close()
 }
 
-// NewClient: new client handler
+// NewClient new client handler
 func NewClient(address string, dialTimeout time.Duration) (Client, error) {
 	ctxWithTimeout, cancelFunc := context.WithTimeout(context.Background(), dialTimeout)
 	defer cancelFunc()
@@ -40,7 +40,7 @@ func NewClient(address string, dialTimeout time.Duration) (Client, error) {
 	}, nil
 }
 
-// GetAccountState: query account state
+// GetAccountState query account state
 func (c Client) GetAccountState(accountAddr string) (AccountState, error) {
 	accountAddrBytes, err := hex.DecodeString(accountAddr)
 	if err != nil {
@@ -70,7 +70,7 @@ func (c Client) GetAccountState(accountAddr string) (AccountState, error) {
 	return decodeAccountStateBlob(accStateBlob)
 }
 
-// GetTransaction: query transaction state
+// GetTransaction query transaction state
 func (c Client) GetTransaction(startVersion uint64, limit uint64, fetchEvents bool) error {
 	requestedItems := []*types.RequestItem{
 		{
@@ -96,7 +96,7 @@ func (c Client) GetTransaction(startVersion uint64, limit uint64, fetchEvents bo
 	return nil
 }
 
-// GetAccountTransactionBySequenceNumber: query transaction detail by account and sequence number
+// GetAccountTransactionBySequenceNumber query transaction detail by account and sequence number
 func (c Client) GetAccountTransactionBySequenceNumber(accountAddr string,
 	sequenceNumber uint64, fetchEvents bool) (GoLibraTransactionInfo, error) {
 

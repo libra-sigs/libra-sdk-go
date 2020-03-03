@@ -8,8 +8,8 @@ import (
 	"github.com/libra-sigs/libra-sdk-go/libra/rpc/types"
 )
 
-//GoLibraTransactionInfo: see more https://github.com/libra/libra/blob/master/types/src/transaction/mod.rs
-//pub struct RawTransaction {
+// GoLibraTransactionInfo see more https://github.com/libra/libra/blob/master/types/src/transaction/mod.rs
+// pub struct RawTransaction {
 type GoLibraTransactionInfo struct {
 	Version         uint64 `json:"version"`
 	Sender          string `json:"sender"`
@@ -22,7 +22,7 @@ type GoLibraTransactionInfo struct {
 	EventRootHash   string `json:"event_hash"`
 }
 
-//String TransactionInfo to string
+// String TransactionInfo to string
 func (txn GoLibraTransactionInfo) String() string {
 	prettyJSON, err := json.MarshalIndent(txn, "", "    ")
 	if err != nil {
