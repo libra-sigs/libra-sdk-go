@@ -9,13 +9,13 @@ const (
 	accResourceKey = "0116608f05d24742a043e6fd12d3b32735f6bfcba287bea92b28a175cd4f3eee32"
 )
 
-// AccountState: account state, see https://github.com/libra/libra/blob/master/types/src/account_config.rs
+//AccountState: account state, see https://github.com/libra/libra/blob/master/types/src/account_config.rs
 type AccountState struct {
 	Blob            []byte
 	AccountResource AccountResource
 }
 
-// AccountResource: account state detail, see https://github.com/libra/libra/blob/master/types/src/account_config.rs
+//AccountResource: account state detail, see https://github.com/libra/libra/blob/master/types/src/account_config.rs
 type AccountResource struct {
 	AuthKey            string `json:"authkey"`
 	Balance            uint64 `json:"balance"`
@@ -29,7 +29,7 @@ type AccountResource struct {
 	EventNo            uint64 `json:"event_no"`
 }
 
-// String: account struct as string
+//String: account struct as string
 func (ar AccountResource) String() string {
 	prettyJSON, err := json.MarshalIndent(ar, "", "    ")
 	if err != nil {
