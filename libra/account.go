@@ -49,7 +49,7 @@ func decodeAccountStateBlob(accountStateBlob []byte) (AccountState, error) {
 	if err != nil {
 		return result, err
 	}
-	accResource, err := DecodeAccountResourceBlob(m[accResourceKey])
+	accResource, err := decodeAccountResourceBlob(m[accResourceKey])
 	if err != nil {
 		return result, err
 	}
