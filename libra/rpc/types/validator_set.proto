@@ -1,0 +1,12 @@
+// Copyright (c) The Libra Core Contributors
+// SPDX-License-Identifier: Apache-2.0
+
+syntax = "proto3";
+
+option go_package = "github.com/libra-sigs/libra-sdk-go/libra/rpc/types";
+package types;
+
+import "types/validator_public_keys.proto";
+
+// Protobuf definition for the Rust struct ValidatorSet.
+message ValidatorSet { repeated ValidatorPublicKeys validator_public_keys = 1; }
