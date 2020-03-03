@@ -44,17 +44,38 @@ func decodeTransaction(m *types.TransactionWithProof) (GoLibraTransactionInfo, e
 	canonicalSerializer := NewCanonicalSerializer(blob)
 
 	_, err = canonicalSerializer.ReadInt32()
+	if err != nil {
+		return result, err
+	}
 	result.Sender, err = canonicalSerializer.ReadXString(32)
+	if err != nil {
+		return result, err
+	}
 
 	result.SequenceNo, err = canonicalSerializer.ReadUint64()
+	if err != nil {
+		return result, err
+	}
 
 	result.TransactionType, err = canonicalSerializer.ReadInt32()
+	if err != nil {
+		return result, err
+	}
 
 	result.MaxGasAmount, err = canonicalSerializer.ReadUint64()
+	if err != nil {
+		return result, err
+	}
 
 	result.GasUnitPrice, err = canonicalSerializer.ReadUint64()
+	if err != nil {
+		return result, err
+	}
 
 	result.ExpirationTime, err = canonicalSerializer.ReadUint64()
+	if err != nil {
+		return result, err
+	}
 
 	result.Version = m.GetVersion()
 	result.StateRootHash = hex.EncodeToString(m.GetProof().GetTransactionInfo().GetStateRootHash())

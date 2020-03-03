@@ -6,39 +6,39 @@ import (
 	"encoding/hex"
 )
 
-// Libra Canonical Serialization (LCS)
-// https://github.com/libra/libra/blob/master/common/lcs/src/lib.rs
+// NewCanonicalSerializer: Libra Canonical Serialization (LCS)
+// see more https://github.com/libra/libra/blob/master/common/lcs/src/lib.rs
 type CanonicalSerializer struct {
 	reader *bytes.Reader
 }
 
-// LCS handler
+// NewCanonicalSerializer: new LCS handler
 func NewCanonicalSerializer(blob []byte) *CanonicalSerializer {
 	return &CanonicalSerializer{reader: bytes.NewReader(blob)}
 }
 
-// LCS read int32
+// ReadInt32: LCS read int32
 func (cs *CanonicalSerializer) ReadInt32() (int32, error) {
 	var val int32
 	err := binary.Read(cs.reader, binary.LittleEndian, &val)
 	return val, err
 }
 
-// LCS read uint64
+// ReadUint64: LCS read uint64
 func (cs *CanonicalSerializer) ReadUint64() (uint64, error) {
 	var val uint64
 	err := binary.Read(cs.reader, binary.LittleEndian, &val)
 	return val, err
 }
 
-// LCS read bool
+// ReadBool: LCS read bool
 func (cs *CanonicalSerializer) ReadBool() (bool, error) {
 	var val bool
 	err := binary.Read(cs.reader, binary.LittleEndian, &val)
 	return val, err
 }
 
-// LCS read string (len + data)
+// ReadString: LCS read string (len + data)
 func (cs *CanonicalSerializer) ReadString() (string, error) {
 	var len uint32
 	err := binary.Read(cs.reader, binary.LittleEndian, &len)
@@ -54,7 +54,7 @@ func (cs *CanonicalSerializer) ReadString() (string, error) {
 	return hex.EncodeToString(val), nil
 }
 
-// LCS read string (data[])
+// ReadXString: LCS read string (data[])
 func (cs *CanonicalSerializer) ReadXString(len uint32) (string, error) {
 	val := make([]byte, len)
 	err := binary.Read(cs.reader, binary.LittleEndian, &val)
@@ -64,7 +64,7 @@ func (cs *CanonicalSerializer) ReadXString(len uint32) (string, error) {
 	return hex.EncodeToString(val), nil
 }
 
-// LCS read map struct
+// ReadMap: LCS read map struct
 func (cs *CanonicalSerializer) ReadMap() (map[string][]byte, error) {
 	var mapEntryCount uint32
 
