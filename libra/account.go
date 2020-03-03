@@ -5,17 +5,17 @@ import (
 	"fmt"
 )
 
-/// https://github.com/libra/libra/blob/master/types/src/account_config.rs
-
 const (
 	accResourceKey = "0116608f05d24742a043e6fd12d3b32735f6bfcba287bea92b28a175cd4f3eee32"
 )
 
+// https://github.com/libra/libra/blob/master/types/src/account_config.rs
 type AccountState struct {
 	Blob            []byte
 	AccountResource AccountResource
 }
 
+// account state
 type AccountResource struct {
 	AuthKey            string `json:"authkey"`
 	Balance            uint64 `json:"balance"`
@@ -29,6 +29,7 @@ type AccountResource struct {
 	EventNo            uint64 `json:"event_no"`
 }
 
+// account struct as string
 func (ar AccountResource) String() string {
 	prettyJSON, err := json.MarshalIndent(ar, "", "    ")
 	if err != nil {
@@ -37,7 +38,7 @@ func (ar AccountResource) String() string {
 	return string(prettyJSON)
 }
 
-func DecodeAccountStateBlob(accountStateBlob []byte) (AccountState, error) {
+func decodeAccountStateBlob(accountStateBlob []byte) (AccountState, error) {
 	result := AccountState{
 		Blob: accountStateBlob,
 	}

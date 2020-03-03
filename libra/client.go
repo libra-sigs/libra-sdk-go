@@ -12,16 +12,19 @@ import (
 	"github.com/libra-sigs/libra-sdk-go/libra/rpc/types"
 )
 
+// sdk client
 type Client struct {
 	address string
 	conn    *grpc.ClientConn
 	acc     admission_control.AdmissionControlClient
 }
 
+// close
 func (c Client) Close() {
 	c.conn.Close()
 }
 
+//
 func NewClient(address string, dialTimeout time.Duration) (Client, error) {
 	ctxWithTimeout, cancelFunc := context.WithTimeout(context.Background(), dialTimeout)
 	defer cancelFunc()
@@ -37,6 +40,7 @@ func NewClient(address string, dialTimeout time.Duration) (Client, error) {
 	}, nil
 }
 
+// query account state
 func (c Client) GetAccountState(accountAddr string) (AccountState, error) {
 	accountAddrBytes, err := hex.DecodeString(accountAddr)
 	if err != nil {
@@ -63,9 +67,10 @@ func (c Client) GetAccountState(accountAddr string) (AccountState, error) {
 
 	accStateBlob := updateLedgerResponse.GetResponseItems()[0].GetGetAccountStateResponse().GetAccountStateWithProof().GetBlob().GetBlob()
 
-	return DecodeAccountStateBlob(accStateBlob)
+	return decodeAccountStateBlob(accStateBlob)
 }
 
+// query transaction state
 func (c Client) GetTransaction(startVersion uint64, limit uint64, fetchEvents bool) error {
 	requestedItems := []*types.RequestItem{
 		{
@@ -91,6 +96,7 @@ func (c Client) GetTransaction(startVersion uint64, limit uint64, fetchEvents bo
 	return nil
 }
 
+// query transaction detail by account and sequence number
 func (c Client) GetAccountTransactionBySequenceNumber(accountAddr string,
 	sequenceNumber uint64, fetchEvents bool) (GoLibraTransactionInfo, error) {
 
@@ -123,7 +129,7 @@ func (c Client) GetAccountTransactionBySequenceNumber(accountAddr string,
 
 	/// TransactionWithProof
 	m := updateLedgerResponse.GetResponseItems()[0].GetGetAccountTransactionBySequenceNumberResponse().GetTransactionWithProof()
-	return DecodeTransaction(m)
+	return decodeTransaction(m)
 	/// AccountStateWithProof
 	/// accStateBlob := updateLedgerResponse.GetResponseItems()[0].GetGetAccountTransactionBySequenceNumberResponse().GetProofOfCurrentSequenceNumber().GetBlob().GetBlob()
 
