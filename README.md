@@ -1,4 +1,6 @@
-# libra-sdk-go[![Build Status](https://travis-ci.org/libra-sigs/libra-sdk-go.svg?branch=master)](https://travis-ci.org/libra-sigs/libra-sdk-go) [![Go Report Card](https://goreportcard.com/badge/github.com/libra-sigs/libra-sdk-go)](https://goreportcard.com/report/github.com/libra-sigs/libra-sdk-go)
+# libra-sdk-go
+[![Build Status](https://travis-ci.org/libra-sigs/libra-sdk-go.svg?branch=master)](https://travis-ci.org/libra-sigs/libra-sdk-go)
+[![Go Report Card](https://goreportcard.com/badge/github.com/libra-sigs/libra-sdk-go)](https://goreportcard.com/report/github.com/libra-sigs/libra-sdk-go)
 
 libra sdk for go
 
